@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script src="../lib/react.js"></script>
+    <script src="../lib/react-dom.js"></script>
+    <script src="../lib/babel.js"></script>
+    <div id="root"></div>
+    <script type="text/babel">
+      const root = ReactDOM.createRoot(document.querySelector('#root'))
+      class App extends React.Component {
+        constructor() {
+          super()
+          this.state = {
+            count: 0,
+          }
+          this.checkCount3 = this.checkCount3.bind(this)
+        }
+
+        checkCount() {
+          console.log('checkCount', this)
+          this.setState({
+            count: 999,
+          })
+          console.log(1323)
+        }
+
+        checkCount2 = () => {
+          console.log('checkCount2', this === App, this)
+          this.setState({
+            count: 999,
+          })
+        }
+        checkCount3() {
+          console.log('add', this)
+        }
+        render() {
+          return (
+            <div>
+              <div>{this.state.count}</div>
+              {/* 通过bind 去修改this指向,让this指向调用该方法的dom元素 */}
+              <button onClick={this.checkCount.bind(this)}>按钮1</button>
+              {/* 通过class fileds 绑定this,因为 checkCount2 是箭头函数,this 指向定义时所处的环境,所以指向 App Class */}
+              <button onClick={this.checkCount2}>按钮2</button>
+              {/* 通过直接传入箭头函数,因为click事件触发时,执行的是箭头函数,所以在箭头函数内部直接调用这个函数, */}
+              <button onClick={() => this.checkCount()}>按钮3</button>
+              <button onClick={this.checkCount3}>按钮4</button>
+            </div>
+          )
+        }
+      }
+      root.render(<App />)
+    </script>
+  </body>
+</html>

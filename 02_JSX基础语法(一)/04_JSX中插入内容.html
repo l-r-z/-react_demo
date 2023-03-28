@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>计数器</title>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script src="../lib/react.js"></script>
+    <script src="../lib/react-dom.js"></script>
+    <script src="../lib/babel.js"></script>
+
+    <script type="text/babel">
+      // 1.定义App根组件
+      class App extends React.Component {
+        constructor() {
+          super()
+          this.state = {
+            message: 'Hello World',
+            names: ['aa', 'bb'],
+            aa: undefined,
+            bb: true,
+            cc: null,
+            obj: { name: 'zs', age: 18 },
+            firstname: 'z',
+            lastname: 's',
+            age: 18,
+            movies: ['流浪地球', '星际穿越', '霍元甲'],
+          }
+        }
+
+        render() {
+          // 1. number string object 类型会直接显示,注意对象{}不能直接显示
+          const { message, names } = this.state
+          // 2. undefined null Boolean 类型不会显示
+          const { aa, bb, cc } = this.state
+          // 3. object类型数据不能作为子元素进行显示
+          const { obj } = this.state
+          // 4. 将结果进行运算后显示 (插入表达式)
+          const { firstname, lastname } = this.state
+          const fullname = firstname + lastname
+          const { age } = this.state
+          const { movies } = this.state
+          // 5. 返回jsx内容
+          return (
+            <div>
+              {/* 1. number string object 类型会直接显示,注意对象{}不能直接显示 */}
+              <h2>{message}</h2>
+              <h2>{names}</h2>
+              {/* 2. undefined null Boolean 类型不会显示 */}
+              <br />
+              <h2>{aa}</h2>
+              <h2>{bb}</h2>
+              <h2>{cc}</h2>
+
+              {/* 3. object类型数据不能作为子元素进行显示 */}
+              <br />
+              {/*报错*/}
+              {/*<h2>{obj}</h2>*/}
+
+              {/* 4.还可以插入表达式*/}
+              <h2>{10 + 20}</h2>
+              <h2>{firstname + lastname}</h2>
+              <h2>{fullname}</h2>
+
+              {/* 5.插入三元运算符*/}
+              <h2>{age > 20 ? '成年人' : '未成年人'}</h2>
+
+              {/* 调用方法 或 函数*/}
+              <ul>
+                {movies.map(movie => (
+                  <li>{movie}</li>
+                ))}
+              </ul>
+              <ul>{this.getMoviesEls()}</ul>
+            </div>
+          )
+        }
+        getMoviesEls() {
+          const liEls = this.state.movies.map(i => <li>{i}</li>)
+          return liEls
+        }
+      }
+
+      // 2.创建root并且渲染App组件
+      const root = ReactDOM.createRoot(document.querySelector('#root'))
+      root.render(<App />)
+    </script>
+  </body>
+</html>

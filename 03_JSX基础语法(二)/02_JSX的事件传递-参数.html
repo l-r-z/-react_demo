@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title></title>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script src="../lib/react.js"></script>
+    <script src="../lib/react-dom.js"></script>
+    <script src="../lib/babel.js"></script>
+
+    <script type="text/babel">
+      // 1.定义App根组件
+      class App extends React.Component {
+        constructor() {
+          super()
+        }
+        btnClick(event, name, age) {
+          console.log('event:', event)
+          console.log('name:', name)
+          console.log('age:', age)
+          console.log('this', this)
+        }
+
+        render() {
+          return (
+            <div>
+              {/* 1. event 传递 */}
+              <button onClick={this.btnClick.bind(this)}>按钮1</button>
+              <button onClick={event => this.btnClick(event)}>按钮2</button>
+
+              {/* 2. 额外参数 传递 */}
+              <button onClick={this.btnClick.bind(this, '张三', 18)}>按钮3(不推荐,event会在最后面,需要注意函数形参接收)</button>
+              <button onClick={event => this.btnClick(event, '张三', 18)}>按钮4(推荐)</button>
+            </div>
+          )
+        }
+      }
+
+      // 2.创建root并且渲染App组件
+      const root = ReactDOM.createRoot(document.querySelector('#root'))
+      root.render(<App />)
+    </script>
+  </body>
+</html>

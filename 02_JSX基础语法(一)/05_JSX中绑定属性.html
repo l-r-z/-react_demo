@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>计数器</title>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script src="../lib/react.js"></script>
+    <script src="../lib/react-dom.js"></script>
+    <script src="../lib/babel.js"></script>
+
+    <script type="text/babel">
+      // 1.定义App根组件
+      class App extends React.Component {
+        constructor() {
+          super()
+          this.state = {
+            title: '哈哈哈',
+            imgUrl:
+              'https://img0.baidu.com/it/u=2371305810,3587591415&fm=253&app=138&size=w931&n=0&f=JPEG&fmt=auto?sec=1678986000&t=a1268e0d64c8f84a7c435faa7c873485',
+            isActive: true,
+            objStyle: {
+              color: 'red',
+              fontSize: '50px',
+            },
+          }
+        }
+
+        render() {
+          const { title, imgUrl, isActive, objStyle } = this.state
+          const classStr = `aaa bbb ${isActive ? 'active' : ''}`
+          const classList = ['aaa', 'bbb']
+          if (isActive) {
+            classList.push('active')
+          }
+          return (
+            <div>
+              {/* 1. 基本绑定 */}
+              <h2 title={title}>{title}</h2>
+              <img src={imgUrl} alt='' />
+              <a href='https://www.baidu.com'>点击跳转百度</a>
+
+              {/* 2. 绑定class属性,注意 class 是关键字,所以在react中用className */}
+              <h2 className='myclass'>哈哈哈</h2>
+              {/* 需求: isActive true时添加类名,否则不添加*/}
+              {/* class绑定写法一: 符串拼接*/}
+              <h2 className={classStr}>哈哈哈1</h2>
+              {/*class绑定写法二: 将所有的class放在数组中*/}
+              <h2 className={classList.join(' ')}>哈哈蛤2</h2>
+              {/*第三种方式 用库 classnames 库*/}
+
+              {/* style样式绑定:注意是小驼峰方式书写*/}
+              <h2 style={{ color: 'red', fontSize: '30px' }}>哈哈style</h2>
+              <h2 style={objStyle}>哈哈style2</h2>
+            </div>
+          )
+        }
+      }
+
+      // 2.创建root并且渲染App组件
+      const root = ReactDOM.createRoot(document.querySelector('#root'))
+      root.render(<App />)
+    </script>
+  </body>
+</html>

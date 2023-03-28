@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- 添加依赖包 -->
+    <!-- react包 -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <!-- react dom包 -->
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <!-- Babel 转换包 处理jsx -->
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+    <div id="root"></div>
+    <div id="app"></div>
+    <script type="text/babel">
+      // 编写 React代码(jsx语法)
+      // jsx语法 -> 普通的JavaScript代码 -> babel
+
+      // 渲染 hello world
+      // React18之前: ReactDOM.render
+      // ReactDOM.render(<h2>hello world</h2>, document.querySelector('#root'))
+
+      // React18之后
+      // 一般一个应用只需要创建一个根,但是可以创建多个根
+      const root = ReactDOM.createRoot(document.querySelector('#root'))
+      root.render(<h2>你好啊,李银河</h2>)
+      // const app = ReactDOM.createRoot(document.querySelector('#app'))
+      // app.render(<h2>你好啊,React</h2>)
+    </script>
+  </body>
+</html>

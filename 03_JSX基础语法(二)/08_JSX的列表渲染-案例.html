@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title></title>
+    <style>
+      .item {
+        width: 500px;
+        border: 1px solid orange;
+        margin: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script src="../lib/react.js"></script>
+    <script src="../lib/react-dom.js"></script>
+    <script src="../lib/babel.js"></script>
+
+    <script type="text/babel">
+      // 1.定义App根组件
+      class App extends React.Component {
+        constructor() {
+          super()
+          this.state = {
+            students: [
+              { id: 1001, name: '张三1', score: 998 },
+              { id: 1002, name: '张三2', score: 999 },
+              { id: 1003, name: '张三3', score: 996 },
+              { id: 1004, name: '张三4', score: 1002 },
+              { id: 1005, name: '张三5', score: 1003 },
+              { id: 1006, name: '张三6', score: 1004 },
+            ],
+          }
+        }
+
+        render() {
+          const { students } = this.state
+          const filterStudens = students
+            .filter(item => {
+              return item.score > 1000
+            })
+            .slice(0, 2)
+          return (
+            <div>
+              <h2>学生列表</h2>
+              {filterStudens.map(item => {
+                return (
+                  <div className='item' key={item.id}>
+                    <h2>学号:{item.id}</h2>
+                    <div>姓名:{item.name}</div>
+                    <div>成绩:{item.score}</div>
+                  </div>
+                )
+              })}
+            </div>
+          )
+        }
+      }
+
+      // 2.创建root并且渲染App组件
+      const root = ReactDOM.createRoot(document.querySelector('#root'))
+      root.render(<App />)
+    </script>
+  </body>
+</html>

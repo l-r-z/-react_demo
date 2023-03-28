@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../lib/react.js"></script>
+    <script src="../lib/react-dom.js"></script>
+    <script src="../lib/babel.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+      /*  const root = ReactDOM.createRoot(document.querySelector('#root'))
+      let message = 'hello 李银河'
+      function check() {
+        message = 'hello React'
+        renderRoot()
+      }
+      function renderRoot() {
+        root.render(
+          <div>
+            <div>{message}</div>
+            <button onClick={check}>点我修改</button>
+          </div>
+        )
+      }
+      renderRoot() */
+
+      const root = ReactDOM.createRoot(document.querySelector('#root'))
+      class App extends React.Component {
+        constructor() {
+          super()
+          // 每个组件的数据都存在state里,固定写法,因为setState方法修改的就是state,而不是自定义的其它属性
+          this.state = {
+            message: '你好,李银河',
+          }
+          // console.log(this, 'constructor') // 这里的this指向实例,可以提前绑定this
+          // this.checkText = this.checkText.bind(this) // 提前绑定this
+        }
+        // 实例方法
+        checkText() {
+          console.log(this, 'checkText')
+          // 点击时,为什么this是undefined呢?因为相当于把这个checkText方法赋值给了onClick事件对应的函数,而在严格模式下,这个this就是指向undefined
+          // 处理方法有两种
+          // 1. 在onClcik时通过bind绑定this
+          // 2. 在constructor中为方法提前绑定this
+          // 必须通过setState修改数据
+
+          this.setState({
+            // 内部做了两件事情
+            // 1. 修改message的值
+            // 2. 自动调用render函数重新渲染
+            message: 'hello React',
+          })
+        }
+        abc = () => {
+          console.log('abc', this)
+        }
+        // 每个组件固定一个render函数
+        render() {
+          console.log(this, 'render') // 这里的this指向组件实例
+          // this.checkText() // 所以在checkText中 this 是实例
+          return (
+            <div>
+              <h2>{this.state.message}</h2>
+              <button onClick={this.checkText.bind(this)}>点我修改</button> {/*通过bind绑定this*/}
+              <button onClick={this.abc}>看方法中的this</button>
+              {/* <button onClick={this.checkText}>点我修改</button> */}
+              {/*还可以写箭头函数来绑定this*/}
+            </div>
+          )
+        }
+      }
+      root.render(<App />)
+    </script>
+  </body>
+</html>

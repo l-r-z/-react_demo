@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      class A {
+        constructor() {
+          this.a = 'a'
+        }
+        getA() {
+          console.log('getA', this)
+        }
+        getAb = function () {
+          console.log('=getAb', this)
+        }
+        xx = '属性a'
+      }
+      /**
+       * 我的疑问:
+       * A类中,getAb = function 和 xx='属性a' 这种写法,在new A时,也将getAb和xx这个属性添加到A的实例上了,这个怎么解释?
+       */
+      class B extends A {
+        constructor() {
+          super()
+          this.b = 'b'
+        }
+        getB() {
+          console.log('getB', this)
+        }
+        getBc = () => {
+          console.log('=getBc', this)
+        }
+      }
+      var a1 = new A()
+      var a2 = new A()
+      var b1 = new B()
+      var b2 = new B()
+    </script>
+  </body>
+</html>

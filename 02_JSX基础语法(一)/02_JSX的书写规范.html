@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>计数器</title>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script src="../lib/react.js"></script>
+    <script src="../lib/react-dom.js"></script>
+    <script src="../lib/babel.js"></script>
+
+    <script type="text/babel">
+      // 1.定义App根组件
+      class App extends React.Component {
+        constructor() {
+          super()
+          this.state = {
+            message: 'Hello World',
+          }
+        }
+
+        render() {
+          const { message } = this.state
+
+          return (
+            // 1.结构中只能有一个根元素
+            // 2.jsx结构通常会包裹一个(),将jsx当作一个整体,实现换行,其实不这样做代码也能运行,为了看起来更美观!
+            // 3.jsx可以写单标签,但是单标签必须以/>结尾 例如 <br/>
+            <div>
+              <h2>{message}</h2>
+            </div>
+          )
+        }
+      }
+
+      // 2.创建root并且渲染App组件
+      const root = ReactDOM.createRoot(document.querySelector('#root'))
+      root.render(<App />)
+    </script>
+  </body>
+</html>
